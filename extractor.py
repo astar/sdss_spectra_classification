@@ -48,7 +48,7 @@ def process(cfg):
         data['data'] = data.fit_name.apply(get_fit_data)
 
     with Timer("Writing output to: {}".format(output)):
-        data.to_csv(output)
+        data.to_csv(output, header=False)
 
 
 
@@ -60,8 +60,8 @@ def get_fit_data(fit):
         #npix = hdulist[1].header['naxis2']
         #wave = 10.**(c0 + c1 * np.arange(npix))
         flux = hdulist[1].data['flux']
-        #model = hdulist[1].data['model']
-        data = ','.join([str(num) for num in flux])
+        model = hdulist[1].data['model']
+        data = ','.join([str(num) for num in model[:2000]])
     return data
 
 
